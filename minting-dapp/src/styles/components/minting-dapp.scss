@@ -84,8 +84,7 @@
     @apply grid sm:grid-cols-2 auto-rows-min;
     @apply rounded-lg;
 
-    @apply font-mono;
-    @apply text-popups-txt text-sm;
+    @apply text-popups-txt text-base;
     @apply bg-popups-bg;
     @apply shadow;
 
@@ -94,7 +93,7 @@
       @apply px-6 py-4;
 
       .label {
-        @apply text-xs text-label;
+        @apply text-base text-label;
       }
     }
 
@@ -121,6 +120,7 @@
       }
 
       &.supply {
+        @apply text-3xl;
         @apply border-b sm:border-b-0 sm:border-r border-popups-internal_border;
       }
     }
@@ -157,7 +157,7 @@
       h2 {
         @apply mb-3;
 
-        @apply text-xl;
+        @apply text-2xl;
       }
     }
   }
@@ -178,13 +178,14 @@
       
       img {
         @apply m-auto;
-        @apply max-h-52;
+        @apply max-h-72;
         
-        filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.4));
+        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.4));
       }
     }
 
     .price {
+      @apply text-3xl;
       @apply px-6 py-4;
     }
 

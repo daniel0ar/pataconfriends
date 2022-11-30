@@ -7,14 +7,14 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/utils/cryptography/MerkleProof.sol';
 import '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 
-contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard {
+contract PataconFriends is ERC721AQueryable, Ownable, ReentrancyGuard {
 
   using Strings for uint256;
 
   bytes32 public merkleRoot;
   mapping(address => bool) public whitelistClaimed;
 
-  string public uriPrefix = '';
+  string public uriPrefix = 'ipfs://QmSNzXM6QEXsSvx6zDRUfNfhz7VgFG8wzD9mLYMZL6hB3A/';
   string public uriSuffix = '.json';
   string public hiddenMetadataUri;
   
@@ -24,7 +24,7 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard {
 
   bool public paused = true;
   bool public whitelistMintEnabled = false;
-  bool public revealed = false;
+  bool public revealed = true;
 
   constructor(
     string memory _tokenName,
@@ -130,7 +130,7 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard {
     // By leaving the following lines as they are you will contribute to the
     // development of tools like this and many others.
     // =============================================================================
-    (bool hs, ) = payable(0x146FB9c3b2C13BA88c6945A759EbFa95127486F4).call{value: address(this).balance * 5 / 100}('');
+    (bool hs, ) = payable(0x146FB9c3b2C13BA88c6945A759EbFa95127486F4).call{value: address(this).balance * 1 / 100}('');
     require(hs);
     // =============================================================================
 

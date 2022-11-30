@@ -67,26 +67,26 @@ export default class MintWidget extends React.Component<Props, State> {
         {this.canMint() ?
           <div className={`mint-widget ${this.props.loading ? 'animate-pulse saturate-0 pointer-events-none' : ''}`}>
             <div className="preview">
-              <img src="/build/images/preview.png" alt="Collection preview" />
+              <img src="/build/images/preview.gif" alt="Collection preview" />
             </div>
 
             <div className="price">
-              <strong>Total price:</strong> {utils.formatEther(this.props.tokenPrice.mul(this.state.mintAmount))} {this.props.networkConfig.symbol}
+              <strong>Precio:</strong> {utils.formatEther(this.props.tokenPrice.mul(this.state.mintAmount))} {this.props.networkConfig.symbol} <p>(~$35)</p>
             </div>
 
             <div className="controls">
               <button className="decrease" disabled={this.props.loading} onClick={() => this.decrementMintAmount()}>-</button>
               <span className="mint-amount">{this.state.mintAmount}</span>
               <button className="increase" disabled={this.props.loading} onClick={() => this.incrementMintAmount()}>+</button>
-              <button className="primary" disabled={this.props.loading} onClick={() => this.mint()}>Mint</button>
+              <button className="primary" disabled={this.props.loading} onClick={() => this.mint()}>Mintear</button>
             </div>
           </div>
           :
           <div className="cannot-mint">
             <span className="emoji">⏳</span>
 
-            {this.props.isWhitelistMintEnabled ? <>You are not included in the <strong>whitelist</strong>.</> : <>The contract is <strong>paused</strong>.</>}<br />
-            Please come back during the next sale!
+            {this.props.isWhitelistMintEnabled ? <>You are not included in the <strong>whitelist</strong>.</> : <>La venta está en <strong>pausa</strong>.</>}<br />
+            Vuelve cuando se abra una nueva venta
           </div>
         }
       </>

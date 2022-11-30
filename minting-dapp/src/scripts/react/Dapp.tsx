@@ -68,11 +68,8 @@ export default class Dapp extends React.Component<Props, State> {
     if (browserProvider?.isMetaMask !== true) {
       this.setError(
         <>
-          We were not able to detect <strong>MetaMask</strong>. We value <strong>privacy and security</strong> a lot so we limit the wallet options on the DAPP.<br />
+          Parece que no tienes <strong>MetaMask</strong> instalado.<br />
           <br />
-          But don't worry! <span className="emoji">😃</span> You can always interact with the smart-contract through <a href={this.generateContractUrl()} target="_blank">{this.state.networkConfig.blockExplorer.name}</a> and <strong>we do our best to provide you with the best user experience possible</strong>, even from there.<br />
-          <br />
-          You can also get your <strong>Whitelist Proof</strong> manually, using the tool below.
         </>,
       );
     }
@@ -91,15 +88,15 @@ export default class Dapp extends React.Component<Props, State> {
       const transaction = await this.contract.mint(amount, {value: this.state.tokenPrice.mul(amount)});
 
       toast.info(<>
-        Transaction sent! Please wait...<br/>
-        <a href={this.generateTransactionUrl(transaction.hash)} target="_blank" rel="noopener">View on {this.state.networkConfig.blockExplorer.name}</a>
+        Transacción enviada! Espera...<br/>
+        <a href={this.generateTransactionUrl(transaction.hash)} target="_blank" rel="noopener">Ver en {this.state.networkConfig.blockExplorer.name}</a>
       </>);
 
       const receipt = await transaction.wait();
 
       toast.success(<>
         Success!<br />
-        <a href={this.generateTransactionUrl(receipt.transactionHash)} target="_blank" rel="noopener">View on {this.state.networkConfig.blockExplorer.name}</a>
+        <a href={this.generateTransactionUrl(receipt.transactionHash)} target="_blank" rel="noopener">Ver en {this.state.networkConfig.blockExplorer.name}</a>
       </>);
 
       this.refreshContractState();
@@ -117,15 +114,15 @@ export default class Dapp extends React.Component<Props, State> {
       const transaction = await this.contract.whitelistMint(amount, Whitelist.getProofForAddress(this.state.userAddress!), {value: this.state.tokenPrice.mul(amount)});
 
       toast.info(<>
-        Transaction sent! Please wait...<br/>
-        <a href={this.generateTransactionUrl(transaction.hash)} target="_blank" rel="noopener">View on {this.state.networkConfig.blockExplorer.name}</a>
+        Transacción enviada! Espera...<br/>
+        <a href={this.generateTransactionUrl(transaction.hash)} target="_blank" rel="noopener">Ver en {this.state.networkConfig.blockExplorer.name}</a>
       </>);
 
       const receipt = await transaction.wait();
 
       toast.success(<>
-        Success!<br />
-        <a href={this.generateTransactionUrl(receipt.transactionHash)} target="_blank" rel="noopener">View on {this.state.networkConfig.blockExplorer.name}</a>
+        Listo!<br />
+        <a href={this.generateTransactionUrl(receipt.transactionHash)} target="_blank" rel="noopener">Ver en {this.state.networkConfig.blockExplorer.name}</a>
       </>);
 
       this.refreshContractState();
@@ -184,8 +181,8 @@ export default class Dapp extends React.Component<Props, State> {
       <>
         {this.isNotMainnet() ?
           <div className="not-mainnet">
-            You are not connected to the main network.
-            <span className="small">Current network: <strong>{this.state.network?.name}</strong></span>
+            No estás conectado a la red principal
+            <span className="small">Red actual: <strong>{this.state.network?.name}</strong></span>
           </div>
           : null}
 
@@ -220,9 +217,9 @@ export default class Dapp extends React.Component<Props, State> {
                   />
                   :
                   <div className="collection-sold-out">
-                    <h2>Tokens have been <strong>sold out</strong>! <span className="emoji">🥳</span></h2>
+                    <h2>Estamos <strong>SOLD OUT</strong>! <span className="emoji">🥳</span></h2>
 
-                    You can buy from our beloved holders on <a href={this.generateMarketplaceUrl()} target="_blank">{CollectionConfig.marketplaceConfig.name}</a>.
+                    Puedes buscar uno en venta en <a href={this.generateMarketplaceUrl()} target="_blank">{CollectionConfig.marketplaceConfig.name}</a>.
                   </div>
                 }
               </>
@@ -233,34 +230,20 @@ export default class Dapp extends React.Component<Props, State> {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
 
-                Loading collection data...
+                Cargando datos de la colección...
               </div>
             }
           </>
         :
           <div className="no-wallet">
-            {!this.isWalletConnected() ? <button className="primary" disabled={this.provider === undefined} onClick={() => this.connectWallet()}>Connect Wallet</button> : null}
+            {!this.isWalletConnected() ? <button className="primary" disabled={this.provider === undefined} onClick={() => this.connectWallet()}>Conecta tu Metamask</button> : null}
 
             <div className="use-block-explorer">
-              Hey, looking for a <strong>super-safe experience</strong>? <span className="emoji">😃</span><br />
-              You can interact with the smart-contract <strong>directly</strong> through <a href={this.generateContractUrl()} target="_blank">{this.state.networkConfig.blockExplorer.name}</a>, without even connecting your wallet to this DAPP! <span className="emoji">🚀</span><br />
+              Usa metamask para conectarte al sitio. <br />
               <br />
-              Keep safe! <span className="emoji">❤️</span>
+              Si no, puedes interactuar <strong>directamente</strong> con el contraro en: <a href={this.generateContractUrl()} target="_blank">{this.state.networkConfig.blockExplorer.name}</a><br />
+              <br />
             </div>
-
-            {!this.isWalletConnected() || this.state.isWhitelistMintEnabled ?
-              <div className="merkle-proof-manual-address">
-                <h2>Whitelist Proof</h2>
-                <p>
-                  Anyone can generate the proof using any public address in the list, but <strong>only the owner of that address</strong> will be able to make a successful transaction by using it.
-                </p>
-
-                {this.state.merkleProofManualAddressFeedbackMessage ? <div className="feedback-message">{this.state.merkleProofManualAddressFeedbackMessage}</div> : null}
-
-                <label htmlFor="merkle-proof-manual-address">Public address:</label>
-                <input id="merkle-proof-manual-address" type="text" placeholder="0x000..." disabled={this.state.userAddress !== null} value={this.state.userAddress ?? this.state.merkleProofManualAddress} ref={(input) => this.merkleProofManualAddressInput = input!} onChange={() => {this.setState({merkleProofManualAddress: this.merkleProofManualAddressInput.value})}} /> <button onClick={() => this.copyMerkleProofToClipboard()}>Generate and copy to clipboard</button>
-              </div>
-              : null}
           </div>
         }
       </>
@@ -269,7 +252,7 @@ export default class Dapp extends React.Component<Props, State> {
 
   private setError(error: any = null): void
   {
-    let errorMessage = 'Unknown error...';
+    let errorMessage = 'Error desconocido...';
 
     if (null === error || typeof error === 'string') {
       errorMessage = error;
