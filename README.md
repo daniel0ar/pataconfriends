@@ -1,8 +1,13 @@
 # PATACON FRIENDS NFT ERC721 Collection
 
+<p align="center">
 <img src="https://s3.sa-east-1.amazonaws.com/skolens.xyz/proyectos/patacon-friends/mint-app/build/images/preview.gif" width=50% height=50%>
+</p>
 
 A unique collection from Ecuador, featuring the allways tasty "patacón" filled with different elements of our culture. Forked from the Hashlips repo.
+Check us on: [OpenSea](https://opensea.io/collection/patacon-friends)
+Check the website: [Skolens](https://skolens.xyz)
+
 
 ## Main features
 - extremely high gas efficiency (users are going to pay lower gas fees compared to traditional collections)
